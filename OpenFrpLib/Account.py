@@ -5,7 +5,7 @@ from requests import post
 
 APIURL = "https://of-dev-api.bfsea.xyz"
 
-def Login(User: str, Password: str):
+def login(User: str, Password: str):
     r"""
     :param User --> str
     :param Password --> str
@@ -35,7 +35,7 @@ def Login(User: str, Password: str):
         SessionID, AuthKey, Flag, Msg = ""
     return SessionID, AuthKey, Flag, Msg
 
-def GetUserInfo(AuthKey: str, SessionID: str, Keyword="all"):
+def getUserInfo(AuthKey: str, SessionID: str, Keyword="all"):
     r"""
     :param AuthKey --> str: If you don't have one, use Login() to get it.
     :param SessionID --> str: If you don't have one, use Login() to get it.
