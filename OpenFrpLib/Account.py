@@ -7,10 +7,12 @@ APIURL = "https://of-dev-api.bfsea.xyz"
 
 def login(User: str, Password: str):
     r"""
-    :param User --> str
-    :param Password --> str
+    Requirements:
+    `User` --> str: Can be a username or an email address.
+    `Password` --> str
 
-    :return SessionID, AuthKey, Flag, Msg --> list
+    Return:
+    `SessionID`, `AuthKey`, `Flag`, `Msg` --> list
     """
     
     # POST API
@@ -37,10 +39,13 @@ def login(User: str, Password: str):
 
 def getUserInfo(AuthKey: str, SessionID: str, Keyword="all"):
     r"""
-    :param AuthKey --> str: If you don't have one, use login() to get it.
-    :param SessionID --> str: If you don't have one, use login() to get it.
-    :param Keyword --> str: Can be 'all' or some other arguments like 'outLimit|used', which is splitted with '|'.
-    :return: UserInfo --> dict: contains the information of a user you want.
+    Requirements:  
+    `AuthKey` --> str: If you don't have one, use login() to get it.
+    `SessionID` --> str: If you don't have one, use login() to get it.
+    `Keyword` --> str: Can be 'all' or some other arguments like 'outLimit|used', which is splitted with '|'.
+    
+    Return:  
+    `UserInfo` --> dict: contains the information of a user you want.
     """
 
     # POST API
