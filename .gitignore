@@ -1,0 +1,6 @@
+.idea/**
+.vs/**
+.vscode/**
+venv/**
+__pycache__/**
+OpenFrpLib/__pycache__/**
