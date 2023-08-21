@@ -4,51 +4,51 @@ Manage account
 from .NetworkController import post
 APIURL = "https://of-dev-api.bfsea.xyz"
 
-def login(user: str, pwd: str):
+
+def login(user: str, password: str):
     r"""
     Login.
     =
     Requirements:
 
-    `User` --> str: Can be a username or an email address.
+    `user` --> str: Can be a username or an email address.
 
-    `Password` --> str
+    `password` --> str
 
     Return:
-    `SessionID`, `AuthKey`, `Flag`, `Msg` --> list
+    `data`, `Authorization`, `flag`, `msg` --> list
     """
-    
+
     # POST API
-    APIData = post(
+    _APIData = post(
         url=f"{APIURL}/user/login",
         json={
             "user": user,
-            "password": pwd
+            "password": password
         },
         headers={'Content-Type': 'application/json'}
     )
+    _loginData = _APIData.json()
+    data = str(_loginData['data'])  # Will be expired in 8 hours.
+    flag = bool(_loginData['flag'])  # Status, true or false.
+    msg = str(_loginData['msg'])  # What Msg API returned.
+    # Will be expired in 8 hours.
+    Authorization = str(_APIData.headers['Authorization'])
 
-    if APIData.ok:
-        LoginData = APIData.json()
+    if not _APIData.ok:
+        _APIData.raise_for_status()
 
-        SessionID = str(LoginData['data'])  # Will be expired in 8 hours.
-        Flag = str(LoginData['flag'])  # Status, true or false.
-        Msg = bool(LoginData['msg'])  # What Msg API returned.
-        AuthKey = str(APIData.headers['Authorization'])  # Will be expired in 8 hours.
-    else:
-        APIData.raise_for_status()
-        SessionID, AuthKey, Flag, Msg = ""
-    return SessionID, AuthKey, Flag, Msg
+    return data, Authorization, flag, msg
 
-def getUserInfo(AuthKey: str, SessionID: str, Keyword="all"):
+
+def getUserInfo(Authorization: str, session: str):
     r"""
     Get a user's infomation.
     =
     Requirements:  
-    `AuthKey` --> str: If you don't have one, use login() to get it.
-    `SessionID` --> str: If you don't have one, use login() to get it.
-    `Keyword` --> str: Can be 'all' or some other arguments like 'outLimit|used', which is splitted with '|'.
-    
+    `Authorization` --> str: If you don't have one, use login() to get it.
+    `session` --> str: If you don't have one, use login() to get it.
+
     Return:  
     `UserInfo` --> dict: contains the information of a user you want.
 
@@ -80,31 +80,40 @@ def getUserInfo(AuthKey: str, SessionID: str, Keyword="all"):
     """
 
     # POST API
-    APIData = post(
+    _APIData = post(
         url=f"{APIURL}/frp/api/getUserInfo",
         json={
-            "session": SessionID
+            "session": session
         },
-        headers={'Content-Type': 'application/json', 'Authorization': AuthKey}
+        headers={'Content-Type': 'application/json',
+                 'Authorization': Authorization}
     )
+    _userData = _APIData.json()
+    data = str(_userData['data'])
+    flag = bool(_userData['flag'])
+    msg = str(_userData['msg'])
 
-    if APIData.ok:
-        UserData = APIData.json()['data']
-        '''
-        DIFFERENCE:
-        UserData is a dict from OPENFRP OPENAPI,
-        while UserInfo is the dict which the function would return.
-        ''' 
-        UserInfo = {}
-        _Keywords = ["outLimit", "used", "token", "realname", "regTime", "inLimit", "friendlyGroup", "proxies", "id", "email", "username", "group", "traffic"]
-        
-        if Keyword == "all":
-            UserInfo = {_Keyword: UserData[_Keyword] for _Keyword in _Keywords}
+    if not _APIData.ok:
+        _APIData.raise_for_status()
 
-        else:
-            Keyword = str(Keyword).split("|")
-            UserInfo = dict(sorted({key: UserData[key] for key in set(Keyword) & set(UserData.keys())}.items(), key=lambda x: _Keywords.index(x[0]) if x[0] in _Keywords else len(_Keywords)))
-    else:
-        APIData.raise_for_status()
-    
-    return UserInfo
+    return data, flag, msg
+
+def userSign(Authorization: str, session: str):
+    # POST API
+    _APIData = post(
+        url=f"{APIURL}/frp/api/userSign",
+        json={
+            "session": session
+        },
+        headers={'Content-Type': 'application/json',
+                 'Authorization': Authorization}
+    )
+    _userSignData = _APIData.json()
+    data = str(_userSignData['data'])
+    flag = bool(_userSignData['flag'])
+    msg = str(_userSignData['msg'])
+
+    if not _APIData.ok:
+        _APIData.raise_for_status()
+
+    return data, flag, msg
