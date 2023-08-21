@@ -49,8 +49,8 @@ def getUserInfo(Authorization: str, session: str):
     `Authorization` --> str: If you don't have one, use login() to get it.
     `session` --> str: If you don't have one, use login() to get it.
 
-    Return:  
-    `UserInfo` --> dict: contains the information of a user you want.
+    Return:
+    `data`, `flag`, `msg` --> list
 
     > outLimit    | 上行带宽(Kbps)
 
@@ -98,7 +98,18 @@ def getUserInfo(Authorization: str, session: str):
 
     return data, flag, msg
 
+
 def userSign(Authorization: str, session: str):
+    r"""
+    Daily sign.
+    =
+    Requirements:  
+    `Authorization` --> str: If you don't have one, use login() to get it.
+    `session` --> str: If you don't have one, use login() to get it.
+
+    Return:
+    `data`, `flag`, `msg` --> list
+    """
     # POST API
     _APIData = post(
         url=f"{APIURL}/frp/api/userSign",
