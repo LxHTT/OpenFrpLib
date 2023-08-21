@@ -1,11 +1,15 @@
 from setuptools import setup, find_packages
 
+with open('README.md', encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(
     name="OpenFrpLib",
-    version="1.0.0",
+    version="1.0.1",
     author="LxHTT",
     author_email="lxhtz.dl@qq.com",
-    description="Python Package for OpenFrp OPENAPI",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     python_requires='>=3.6',
     long_description="A Python Package to Use OpenFrp OPENAPI More Easily",
     long_description_content_type="text",
@@ -17,4 +21,12 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    install_requires=[
+        "requests~=2.29.0"
+    ],
+    project_urls={
+        'Documentation': 'https://github.com/LxHTT/OpenFrpLib/blob/master/README.md',
+        'Source Code': 'https://github.com/LxHTT/OpenFrpLib',
+        'Bug Tracker': 'https://github.com/LxHTT/OpenFrpLib/issues',
+    }
 )
