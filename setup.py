@@ -11,8 +11,6 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     python_requires='>=3.6',
-    long_description="A Python Package to Use OpenFrp OPENAPI More Easily",
-    long_description_content_type="text",
     url="https://github.com/LxHTT/OpenFrpLib",
     packages=find_packages(),
     license='MIT',
