@@ -1,14 +1,17 @@
 """
 Manage account
 """
-from requests import post
-
+from .NetworkController import post
 APIURL = "https://of-dev-api.bfsea.xyz"
 
-def login(User: str, Password: str):
+def login(user: str, pwd: str):
     r"""
+    Login.
+    =
     Requirements:
+
     `User` --> str: Can be a username or an email address.
+
     `Password` --> str
 
     Return:
@@ -19,8 +22,8 @@ def login(User: str, Password: str):
     APIData = post(
         url=f"{APIURL}/user/login",
         json={
-            "user": User,
-            "password": Password
+            "user": user,
+            "password": pwd
         },
         headers={'Content-Type': 'application/json'}
     )
@@ -39,6 +42,8 @@ def login(User: str, Password: str):
 
 def getUserInfo(AuthKey: str, SessionID: str, Keyword="all"):
     r"""
+    Get a user's infomation.
+    =
     Requirements:  
     `AuthKey` --> str: If you don't have one, use login() to get it.
     `SessionID` --> str: If you don't have one, use login() to get it.
@@ -46,6 +51,32 @@ def getUserInfo(AuthKey: str, SessionID: str, Keyword="all"):
     
     Return:  
     `UserInfo` --> dict: contains the information of a user you want.
+
+    > outLimit    | 上行带宽(Kbps)
+
+    > used        | 已用隧道(条)
+
+    > token       | 用户密钥(32位字符)
+
+    > realname    | 是否已进行实名认证(已认证为True, 未认证为False)
+
+    > regTime     | 注册时间(Unix时间戳)
+
+    > inLimit     | 下行带宽(Kbps)
+
+    > friendlyGroup | 用户组名称(文字格式友好名称, 可直接输出显示)
+
+    > proxies     | 总共隧道条数(条)
+
+    > id          | 用户注册ID
+
+    > email       | 用户注册邮箱
+
+    > username    | 用户名(用户账户)
+
+    > group       | 用户组(系统识别标识) (normal为普通用户)
+
+    > traffic     | 剩余流量(Mib)
     """
 
     # POST API
