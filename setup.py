@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="OpenFrpLib",
-    version="0.0.1",
+    version="1.0.0",
     author="LxHTT",
     author_email="lxhtz.dl@qq.com",
     description="Python Package for OpenFrp OPENAPI",
