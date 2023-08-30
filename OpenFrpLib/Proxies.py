@@ -108,7 +108,7 @@ def editProxy(Authorization: str,
               ):
     # POST API
     _APIData = post(
-        url=f"{APIURL}/frp/api/newProxy",
+        url=f"{APIURL}/frp/api/editProxy",
         json={
             "name": name,
             "node_id": node_id,
@@ -165,7 +165,7 @@ def removeProxy(Authorization: str,
 def getNodeList(Authorization: str, session: str):
     # POST API
     _APIData = post(
-        url=f"{APIURL}/frp/api/removeProxy",
+        url=f"{APIURL}/frp/api/getNodeList",
         json={
             "session": session
         },
