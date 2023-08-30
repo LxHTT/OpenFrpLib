@@ -173,7 +173,7 @@ def getNodeList(Authorization: str, session: str):
                  'Authorization': Authorization}
     )
     _getNodeListData = _APIData.json()
-    data = str(_getNodeListData['data'])
+    data = dict(_getNodeListData['data'])
     flag = bool(_getNodeListData['flag'])
     msg = str(_getNodeListData['msg'])
 
