@@ -1,10 +1,16 @@
 from requests import Session
 
-Session = Session()
-Session.trust_env = False
+from requests import Session
 
-post = Session.post
-get = Session.get
+class Session(Session):
+    def __init__(self):
+        super().__init__()
+        #: Trust environment settings for proxy configuration, default
+        #: authentication and similar.
+        self.trust_env = False
+
+post = Session().post
+get = Session().get
 
 
 def BYPASS_SYSTEM_PROXY(STATUS):
