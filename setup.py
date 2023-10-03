@@ -5,7 +5,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name="OpenFrpLib",
-    version="1.1.3",
+    version="1.1.4",
     author="LxHTT",
     author_email="lxhtt@vip.qq.com",
     long_description=long_description,
