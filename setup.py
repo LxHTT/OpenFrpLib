@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
-
+from . import OpenFrpLib
 with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name="OpenFrpLib",
-    version="1.1.4",
+    version=OpenFrpLib.__version__,
     author="LxHTT",
     author_email="lxhtt@vip.qq.com",
     long_description=long_description,
