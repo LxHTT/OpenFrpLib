@@ -2,7 +2,9 @@
 Manage account
 """
 from .NetworkController import post
+
 APIURL = "https://of-dev-api.bfsea.xyz"
+OAUTHURL = "https://openid.17a.icu"
 
 
 def login(user: str, password: str):
@@ -20,32 +22,38 @@ def login(user: str, password: str):
     """
 
     # POST API
-    _APIData = post(
-        url=f"{APIURL}/user/login",
-        json={
-            "user": user,
-            "password": password
-        },
-        headers={'Content-Type': 'application/json'}
+    _oauthData = post(
+        url=f"{OAUTHURL}/api/public/login",
+        json={"user": user, "password": password},
+        headers={"Content-Type": "application/json"},
     )
-    _loginData = _APIData.json()
-    data = _loginData['data']  # Will be expired in 8 hours.
-    flag = bool(_loginData['flag'])  # Status, true or false.
-    msg = str(_loginData['msg'])  # What Msg API returned.
-    # Will be expired in 8 hours.
-    Authorization = str(_APIData.headers['Authorization'])
+    if _oauthData.json()["flag"]:
+        _callbackData = post(
+            url=f"{OAUTHURL}/api/oauth2/authorize?response_type=code&redirect_uri=http:%2F%2Fconsole.openfrp.net%2Foauth_callback&client_id=openfrp",
+            headers={"Content-Type": "application/json"},
+        )
+        return _loginCallback(_callbackData.json()['data']['code'])
+        
 
-    if not _APIData.ok:
-        _APIData.raise_for_status()
+def _loginCallback(code: str):
+    _loginData = post(
+                url=f"{APIURL}/oauth2/callback?code={code}",
+                headers={"Content-Type": "application/json"},
+            )
+    _APIData = _loginData.json()
+    data = _APIData["data"]  # Will be expired in 8 hours.
+    flag = bool(_APIData["flag"])  # Status, true or false.
+    msg = str(_APIData["msg"])  # What Msg API returned.
+    # Will be expired in 8 hours.
+    Authorization = str(_loginData.headers["Authorization"])
 
     return data, Authorization, flag, msg
-
 
 def getUserInfo(Authorization: str, session: str):
     r"""
     Get a user's infomation.
     =
-    Requirements:  
+    Requirements:
     `Authorization` --> str: If you don't have one, use login() to get it.
     `session` --> str: If you don't have one, use login() to get it.
 
@@ -82,16 +90,13 @@ def getUserInfo(Authorization: str, session: str):
     # POST API
     _APIData = post(
         url=f"{APIURL}/frp/api/getUserInfo",
-        json={
-            "session": session
-        },
-        headers={'Content-Type': 'application/json',
-                 'Authorization': Authorization}
+        json={"session": session},
+        headers={"Content-Type": "application/json", "Authorization": Authorization},
     )
     _userData = _APIData.json()
-    data = _userData['data']
-    flag = bool(_userData['flag'])
-    msg = str(_userData['msg'])
+    data = _userData["data"]
+    flag = bool(_userData["flag"])
+    msg = str(_userData["msg"])
 
     if not _APIData.ok:
         _APIData.raise_for_status()
@@ -103,7 +108,7 @@ def userSign(Authorization: str, session: str):
     r"""
     Daily sign.
     =
-    Requirements:  
+    Requirements:
     `Authorization` --> str: If you don't have one, use login() to get it.
     `session` --> str: If you don't have one, use login() to get it.
 
@@ -113,16 +118,13 @@ def userSign(Authorization: str, session: str):
     # POST API
     _APIData = post(
         url=f"{APIURL}/frp/api/userSign",
-        json={
-            "session": session
-        },
-        headers={'Content-Type': 'application/json',
-                 'Authorization': Authorization}
+        json={"session": session},
+        headers={"Content-Type": "application/json", "Authorization": Authorization},
     )
     _userSignData = _APIData.json()
-    data = _userSignData['data']
-    flag = bool(_userSignData['flag'])
-    msg = str(_userSignData['msg'])
+    data = _userSignData["data"]
+    flag = bool(_userSignData["flag"])
+    msg = str(_userSignData["msg"])
 
     if not _APIData.ok:
         _APIData.raise_for_status()
