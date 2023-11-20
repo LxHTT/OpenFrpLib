@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   py36:
-    name: Publish Python package to PyPI
+    name: py36-build
     runs-on: ubuntu-latest
 
     steps:
@@ -14,23 +14,30 @@ jobs:
     - name: Set up Python Environment
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.6'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel twine
+        pip install setuptools wheel
 
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    - name: Build
       run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/*
+
+    - name: Rename file
+      run: |
+        mv dist/*.whl dist/OpenFrpLib-1.2.3-py36-none-any.whl
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: py36
+        path: |
+          dist/*.whl
  
   py37:
-    name: Publish Python package to PyPI
+    name: py37-build
     runs-on: ubuntu-latest
 
     steps:
@@ -40,23 +47,30 @@ jobs:
     - name: Set up Python Environment
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.7'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel twine
+        pip install setuptools wheel
 
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    - name: Build
       run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/*
+
+    - name: Rename file
+      run: |
+        mv dist/*.whl dist/OpenFrpLib-1.2.3-py37-none-any.whl
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: py37
+        path: |
+          dist/*.whl
        
   py38:
-    name: Publish Python package to PyPI
+    name: py38-build
     runs-on: ubuntu-latest
 
     steps:
@@ -71,19 +85,26 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel twine
+        pip install setuptools wheel
     
     # 构建和发布
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    - name: Build
       run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/*
+
+    - name: Rename file
+      run: |
+        mv dist/*.whl dist/OpenFrpLib-1.2.3-py38-none-any.whl
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: py38
+        path: |
+          dist/*.whl
 
   py39:
-    name: Publish Python package to PyPI
+    name: py39-build
     runs-on: ubuntu-latest
 
     steps:
@@ -93,24 +114,31 @@ jobs:
     - name: Set up Python Environment
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.9'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel twine
+        pip install setuptools wheel
     
     # 构建和发布
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    - name: Build
       run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/*
+
+    - name: Rename file
+      run: |
+        mv dist/*.whl dist/OpenFrpLib-1.2.3-py39-none-any.whl
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: py39
+        path: |
+          dist/*.whl
 
   py310:
-    name: Publish Python package to PyPI
+    name: py310-build
     runs-on: ubuntu-latest
 
     steps:
@@ -120,24 +148,31 @@ jobs:
     - name: Set up Python Environment
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.10'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel twine
+        pip install setuptools wheel
     
     # 构建和发布
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    - name: Build
       run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/*
+
+    - name: Rename file
+      run: |
+        mv dist/*.whl dist/OpenFrpLib-1.2.3-py310-none-any.whl
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: py310
+        path: |
+          dist/*.whl
 
   py311:
-    name: Publish Python package to PyPI
+    name: py311-build
     runs-on: ubuntu-latest
 
     steps:
@@ -147,18 +182,56 @@ jobs:
     - name: Set up Python Environment
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.11'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel twine
+        pip install setuptools wheel
     
     # 构建和发布
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    - name: Build
       run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/*
+
+    - name: Rename file
+      run: |
+        mv dist/*.whl dist/OpenFrpLib-1.2.3-py311-none-any.whl
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: py311
+        path: |
+          dist/*.whl
+
+  Release:
+    runs-on: ubuntu-latest
+    
+    steps:
+
+      - uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: 'Asia/Shanghai'
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Check-out repository
+        uses: actions/checkout@v3
+        with:
+          path: repo
+      
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: ./repo/ChangeLog.md
+          prerelease: false
+          draft: false
+          tag_name: v1.2.3
+          files: |
+            */**
+            */*.whl
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
