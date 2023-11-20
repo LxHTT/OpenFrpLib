@@ -216,11 +216,30 @@ jobs:
 
       - name: Download Artifacts
         uses: actions/download-artifact@v3
+    
+      - name: Set up Python Environment
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
 
       - name: Check-out repository
         uses: actions/checkout@v3
         with:
           path: repo
+
+      - name: Move File
+        run: |
+          mkdir -p dist
+          mv */*.whl repo/dist
+
+      - name: Publish
+        run: |
+          twine upload dist/*.whl
       
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -231,7 +250,7 @@ jobs:
           tag_name: v1.2.3
           files: |
             */**
-            */*.whl
+            dist/*.whl
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
