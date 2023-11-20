@@ -3,39 +3,6 @@ name: Publish to PyPI
 on: workflow_dispatch
 
 jobs:
-  py36:
-    name: py36-build
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Check out the Repository
-      uses: actions/checkout@v2
-    
-    - name: Set up Python Environment
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.6'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel
-
-    - name: Build
-      run: |
-        python setup.py sdist bdist_wheel
-
-    - name: Rename file
-      run: |
-        mv dist/*.whl dist/OpenFrpLib-1.2.3-py36-none-any.whl
-
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: py36
-        path: |
-          dist/*.whl
- 
   py37:
     name: py37-build
     runs-on: ubuntu-latest
@@ -45,14 +12,12 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Set up Python Environment
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.7'
+      uses: actions/setup-python@v4
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel
+        pip install setuptools wheel requests
 
     - name: Build
       run: |
@@ -78,14 +43,14 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Set up Python Environment
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.8'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel
+        pip install setuptools wheel requests
     
     # 构建和发布
     - name: Build
@@ -112,14 +77,14 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Set up Python Environment
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel
+        pip install setuptools wheel requests
     
     # 构建和发布
     - name: Build
@@ -146,14 +111,14 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Set up Python Environment
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.10'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel
+        pip install setuptools wheel requests
     
     # 构建和发布
     - name: Build
@@ -180,14 +145,14 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Set up Python Environment
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.11'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel
+        pip install setuptools wheel requests
     
     # 构建和发布
     - name: Build
@@ -218,14 +183,14 @@ jobs:
         uses: actions/download-artifact@v3
     
       - name: Set up Python Environment
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.8'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel twine
+          pip install setuptools wheel requests twine
 
       - name: Check-out repository
         uses: actions/checkout@v3
