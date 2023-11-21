@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Check out the Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     
     - name: Set up Python Environment
       uses: actions/setup-python@v4
@@ -40,7 +40,7 @@ jobs:
 
     steps:
     - name: Check out the Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     
     - name: Set up Python Environment
       uses: actions/setup-python@v4
@@ -74,7 +74,7 @@ jobs:
 
     steps:
     - name: Check out the Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     
     - name: Set up Python Environment
       uses: actions/setup-python@v4
@@ -108,7 +108,7 @@ jobs:
 
     steps:
     - name: Check out the Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     
     - name: Set up Python Environment
       uses: actions/setup-python@v4
@@ -142,7 +142,7 @@ jobs:
 
     steps:
     - name: Check out the Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     
     - name: Set up Python Environment
       uses: actions/setup-python@v4
@@ -194,13 +194,11 @@ jobs:
 
       - name: Check-out repository
         uses: actions/checkout@v3
-        with:
-          path: repo
 
       - name: Move File
         run: |
           mkdir -p dist
-          mv */*.whl repo/dist
+          mv */*.whl dist
 
       - name: Publish
         run: |
@@ -209,12 +207,11 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          body_path: ./repo/ChangeLog.md
+          body_path: ./ChangeLog.md
           prerelease: false
           draft: false
           tag_name: v1.2.3
           files: |
-            */**
             dist/*.whl
 
         env:
