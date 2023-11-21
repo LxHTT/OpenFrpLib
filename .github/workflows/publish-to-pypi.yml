@@ -200,11 +200,11 @@ jobs:
       - name: Move File
         run: |
           mkdir -p dist
-          mv py37/*.whl dist
-          mv py38/*.whl dist
-          mv py39/*.whl dist
-          mv py310/*.whl dist
-          mv py311/*.whl dist
+          mv ./py37/*.whl dist
+          mv ./py38/*.whl dist
+          mv ./py39/*.whl dist
+          mv ./py310/*.whl dist
+          mv ./py311/*.whl dist
 
       - name: Publish
         run: |
