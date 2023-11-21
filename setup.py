@@ -10,7 +10,7 @@ setup(
     author_email="lxhtt@vip.qq.com",
     long_description=long_description,
     long_description_content_type='text/markdown',
-    python_requires='>=3.7, <=3.11',
+    python_requires='>=3.7, <=3.10',
     url="https://github.com/LxHTT/OpenFrpLib",
     packages=find_packages(),
     license='MIT',
