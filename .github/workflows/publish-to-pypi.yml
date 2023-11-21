@@ -172,7 +172,7 @@ jobs:
 
   Release:
     runs-on: ubuntu-latest
-    
+    needs: [py37, py38, py39, py310, py311]
     steps:
 
       - uses: szenius/set-timezone@v1.0
