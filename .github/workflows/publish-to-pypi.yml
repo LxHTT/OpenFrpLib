@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
-        version: "1.2.3"
+        oflib-version: 1.2.3
 
     steps:
     - name: Check out the Repository
@@ -33,12 +33,12 @@ jobs:
 
     - name: Rename file
       run: |
-        mv dist/*.whl dist/OpenFrpLib-${{ matrix.version }}-py${{ matrix.python-version }}-none-any.whl
+        mv dist/*.whl dist/OpenFrpLib-${{ matrix.oflib-version }}-py${{ matrix.python-version }}-none-any.whl
   
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: Python${{ matrix.python-version }}-OpenFrpLib${{ matrix.version }}
+        name: Python${{ matrix.python-version }}-OpenFrpLib${{ matrix.oflib-version }}
         path: dist/
   
     - name: Publish
@@ -51,7 +51,7 @@ jobs:
         body_path: ./ChangeLog.md
         prerelease: false
         draft: false
-        tag_name: v${{ matrix.version }}
+        tag_name: v${{ matrix.oflib-version }}
         files: |
           dist/*.whl
       env:
