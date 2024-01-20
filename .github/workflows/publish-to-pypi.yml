@@ -3,14 +3,16 @@ name: Publish to PyPI
 on: workflow_dispatch
 
 jobs:
-  py36:
+  deploy:
     name: Publish Python package to PyPI
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
 
     steps:
     - name: Check out the Repository
       uses: actions/checkout@v2
-    
+
     - name: Set up Python Environment
       uses: actions/setup-python@v2
       with:
@@ -22,143 +24,8 @@ jobs:
         pip install setuptools wheel twine
 
     - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/*
- 
-  py37:
-    name: Publish Python package to PyPI
-    runs-on: ubuntu-latest
 
-    steps:
-    - name: Check out the Repository
-      uses: actions/checkout@v2
-    
-    - name: Set up Python Environment
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine
-
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*
-       
-  py38:
-    name: Publish Python package to PyPI
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Check out the Repository
-      uses: actions/checkout@v2
-    
-    - name: Set up Python Environment
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine
-    
-    # 构建和发布
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*
-
-  py39:
-    name: Publish Python package to PyPI
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Check out the Repository
-      uses: actions/checkout@v2
-    
-    - name: Set up Python Environment
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine
-    
-    # 构建和发布
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*
-
-  py310:
-    name: Publish Python package to PyPI
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Check out the Repository
-      uses: actions/checkout@v2
-    
-    - name: Set up Python Environment
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine
-    
-    # 构建和发布
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*
-
-  py311:
-    name: Publish Python package to PyPI
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Check out the Repository
-      uses: actions/checkout@v2
-    
-    - name: Set up Python Environment
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine
-    
-    # 构建和发布
-    - name: Build and Publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
