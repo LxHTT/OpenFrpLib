@@ -1,6 +1,7 @@
 """
 Manage account
 """
+
 from .NetworkController import post
 
 APIURL = "https://of-dev-api.bfsea.xyz"
@@ -29,17 +30,17 @@ def login(user: str, password: str):
     )
     if _oauthData.status_code == 200:
         _callbackData = post(
-            url=f"{OAUTHURL}/api/oauth2/authorize?response_type=code&redirect_uri=https://of-dev-api.bfsea.xyz/oauth_callback&client_id=openfrp",
+            url=f"{OAUTHURL}/api/oauth2/authorize?response_type=code&redirect_uri=http://console.openfrp.net/oauth_callback&client_id=openfrp",
             headers={"Content-Type": "application/json"},
         )
-        return _loginCallback(_callbackData.json()['data']['code'])
-        
+        return _loginCallback(_callbackData.json()["data"]["code"])
+
 
 def _loginCallback(code: str):
     _loginData = post(
-                url=f"{APIURL}/oauth2/callback?code={code}",
-                headers={"Content-Type": "application/json"},
-            )
+        url=f"https://console.openfrp.net/web/oauth2/callback?code={code}",
+        headers={"Content-Type": "application/json"},
+    )
     _APIData = _loginData.json()
     data = _APIData["data"]  # Will be expired in 8 hours.
     flag = bool(_APIData["flag"])  # Status, true or false.
@@ -48,6 +49,7 @@ def _loginCallback(code: str):
     Authorization = str(_loginData.headers["Authorization"])
 
     return data, Authorization, flag, msg
+
 
 def getUserInfo(Authorization: str, session: str):
     r"""
