@@ -30,7 +30,7 @@ def login(user: str, password: str):
     )
     if _oauthData.status_code == 200:
         _callbackData = post(
-            url=f"{OAUTHURL}/api/oauth2/authorize?response_type=code&redirect_uri=http://console.openfrp.net/oauth_callback&client_id=openfrp",
+            url=f"{OAUTHURL}/api/oauth2/authorize?response_type=code&redirect_uri=https://console.openfrp.net/oauth_callback&client_id=openfrp&log=pass",
             headers={"Content-Type": "application/json"},
         )
         return _loginCallback(_callbackData.json()["data"]["code"])
