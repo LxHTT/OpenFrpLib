@@ -4,8 +4,8 @@ Manage account
 
 from .NetworkController import post
 
-APIURL = "https://of-dev-api.bfsea.xyz"
-OAUTHURL = "https://openid.17a.ink"
+APIURL = "https://api.openfrp.net"
+OAUTHURL = "https://account.naids.com"
 
 
 def login(user: str, password: str):
