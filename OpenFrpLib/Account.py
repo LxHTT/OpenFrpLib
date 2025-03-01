@@ -14,7 +14,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from nacl.public import PrivateKey, Box, PublicKey
 
 
-
 APIURL = "https://api.openfrp.net"
 OAUTHURL = "https://access.openfrp.net"
 
