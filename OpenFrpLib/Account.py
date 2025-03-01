@@ -5,12 +5,7 @@ Manage account
 import base64
 import time
 from .NetworkController import post, get
-import sys
-import os
 import webbrowser
-
-# change the path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from nacl.public import PrivateKey, Box, PublicKey
 
 
