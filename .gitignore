@@ -5,3 +5,8 @@ venv/**
 __pycache__/**
 OpenFrpLib/__pycache__/**
 1.py
+
+nacl/**
+cffi/**
+pycparser/**
+_cffi_backend.cp38-win_amd64.pyd

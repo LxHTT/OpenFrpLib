@@ -4,7 +4,7 @@ Manage proxies
 from .NetworkController import post
 from typing import Optional
 from random import randint
-APIURL = "https://of-dev-api.bfsea.xyz"
+APIURL = "https://api.openfrp.net"
 
 
 def getUserProxies(Authorization: str, session: str):

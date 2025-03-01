@@ -21,6 +21,7 @@ setup(
     ],
     install_requires=[
         "requests>=2.31.0"
+        "pynacl"
     ],
     project_urls={
         'Documentation': 'https://github.com/LxHTT/OpenFrpLib/blob/master/README.md',
