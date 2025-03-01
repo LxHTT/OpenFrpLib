@@ -20,8 +20,8 @@ setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        "requests>=2.31.0"
-        "pynacl"
+        "requests>=2.31.0",
+        "pynacl>=1.5.0"
     ],
     project_urls={
         'Documentation': 'https://github.com/LxHTT/OpenFrpLib/blob/master/README.md',
