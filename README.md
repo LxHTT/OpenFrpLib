@@ -32,11 +32,13 @@ BYPASS_SYSTEM_PROXY(True) # True为开启绕过, False不绕过
 
 #### 登录  
 
+现在会打开浏览器提示授权，授权后会返回SessionID和Authorization
+
 ```python
 from OpenFrpLib import login
 
 # 用一个列表存取，方便记录SessionID和Authorization
-LoginInfo = login(user="用户名或邮箱", password="密码")
+LoginInfo = login()
 ```
 
 #### 获取用户信息  
